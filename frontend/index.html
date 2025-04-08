@@ -6,6 +6,8 @@
     <title>Admin Dashboard</title>
     <link rel="stylesheet" href="./style.css">
     <script defer src="./script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     
     <!-- Montserrat Font -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
@@ -46,41 +48,52 @@
         <div id="masters-page" class="hidden">
           <div class="main-content">
             <h2>Masters Data</h2>
-            <input type="text" id="search" placeholder="Search...">
+            <input type="text" id="search" placeholder="Search..." onkeyup="filterTable('masters')">
             <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Category</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody id="masters-table">
-                    <tr>
-                        <td>1</td>
-                        <td>ABC</td>
-                        <td>State</td>
-                        <td>Complete</td>
-                    </tr>
-                    <tr>
-                      <td>1</td>
-                      <td>ABC</td>
-                      <td>State</td>
-                      <td>Incomplete</td>
-                  </tr>
+              <thead>
                   <tr>
-                    <td>1</td>
-                    <td>ABC</td>
-                    <td>State</td>
-                    <td>Complete</td>
-                </tr>
-                </tbody>
-            </table>
+                      <th>ID</th>
+                      <th>Category</th>
+                      <th>City</th>
+                      <th>Name</th>
+                      <th>Area</th>
+                      <th>Address</th>
+                      <th>Phone No 1</th>
+                      <th>Phone No 2</th>
+                      <th>URL</th>
+                      <th>Ratings</th>
+                      <th>Sub Category</th>
+                      <th>State</th>
+                      <th>Country</th>
+                      <th>Email</th>
+                      <th>Latitude</th>
+                      <th>Longitude</th>
+                      <th>Reviews</th>
+                      <th>Facebook URL</th>
+                      <th>LinkedIn URL</th>
+                      <th>Twitter URL</th>
+                      <th>Description</th>
+                      <th>Pincode</th>
+                      <th>Virtual Phone No</th>
+                      <th>WhatsApp No</th>
+                      <th>Phone No 3</th>
+                      <th>Avg Spent</th>
+                      <th>Cost for Two</th>
+                  </tr>
+              </thead>
+              <tbody id="masters-table">
 
+              </tbody>
+            </table>   
+            <div class="pagination">
+              <button id="prevPage-masters" onclick="prevPage('masters')">Previous</button>
+              <span id="pagination-info-masters">Page 1 of 1</span>
+              <button id="nextPage-masters" onclick="nextPage('masters')">Next</button>
+            </div>
+                     
           </div>
         </div>
-
+        
         <div id="imported-page" class="hidden">
           <div class="container">
             <h2>Imported Data</h2>
@@ -93,75 +106,97 @@
         <div id="complete-page" class="hidden">
           <div class="main-content">
             <h2>Complete Data</h2>
-            <input type="text" id="search" placeholder="Search...">
+            <input type="text" id="search-complete" placeholder="Search..." onkeyup="filterTable('complete')">
             <table>
                 <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Category</th>
-                        <th>Status</th>
-                    </tr>
+                  <tr>
+                  <th>ID</th>
+                  <th>Category</th>
+                  <th>City</th>
+                  <th>Name</th>
+                  <th>Area</th>
+                  <th>Address</th>
+                  <th>Phone No 1</th>
+                  <th>Phone No 2</th>
+                  <th>URL</th>
+                  <th>Ratings</th>
+                  <th>Sub Category</th>
+                  <th>State</th>
+                  <th>Country</th>
+                  <th>Email</th>
+                  <th>Latitude</th>
+                  <th>Longitude</th>
+                  <th>Reviews</th>
+                  <th>Facebook URL</th>
+                  <th>LinkedIn URL</th>
+                  <th>Twitter URL</th>
+                  <th>Description</th>
+                  <th>Pincode</th>
+                  <th>Virtual Phone No</th>
+                  <th>WhatsApp No</th>
+                  <th>Phone No 3</th>
+                  <th>Avg Spent</th>
+                  <th>Cost for Two</th>
+                  </tr>
                 </thead>
                 <tbody id="complete-table">
-                    <tr>
-                        <td>2</td>
-                        <td>XYZ</td>
-                        <td>District</td>
-                        <td>Complete</td>
-                    </tr>
-                    <tr>
-                      <td>2</td>
-                      <td>XYZ</td>
-                      <td>District</td>
-                      <td>Complete</td>
-                    </tr>
-                    <tr>
-                      <td>2</td>
-                      <td>XYZ</td>
-                      <td>District</td>
-                      <td>Complete</td>
-                  </tr>
+
                 </tbody>
             </table>
+            <div class="pagination">
+              <button id="prevPage-complete" onclick="prevPage('complete')">Previous</button>
+              <span id="pagination-info-complete">Page 1 of 1</span>
+              <button id="nextPage-complete" onclick="nextPage('complete')">Next</button>
+            </div>
           </div>
         </div>
 
         <div id="incomplete-page" class="hidden">
           <div class="main-content">
             <h2>Incomplete Data</h2>
-            <input type="text" id="search" placeholder="Search...">
+            <input type="text" id="search-incomplete" placeholder="Search..." onkeyup="filterTable('incomplete')">
             <table>
                 <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Category</th>
-                        <th>Status</th>
-                    </tr>
+                  <th>ID</th>
+                  <th>Category</th>
+                  <th>City</th>
+                  <th>Name</th>
+                  <th>Area</th>
+                  <th>Address</th>
+                  <th>Phone No 1</th>
+                  <th>Phone No 2</th>
+                  <th>URL</th>
+                  <th>Ratings</th>
+                  <th>Sub Category</th>
+                  <th>State</th>
+                  <th>Country</th>
+                  <th>Email</th>
+                  <th>Latitude</th>
+                  <th>Longitude</th>
+                  <th>Reviews</th>
+                  <th>Facebook URL</th>
+                  <th>LinkedIn URL</th>
+                  <th>Twitter URL</th>
+                  <th>Description</th>
+                  <th>Pincode</th>
+                  <th>Virtual Phone No</th>
+                  <th>WhatsApp No</th>
+                  <th>Phone No 3</th>
+                  <th>Avg Spent</th>
+                  <th>Cost for Two</th>
                 </thead>
                 <tbody id="incomplete-table">
-                    <tr>
-                        <td>3</td>
-                        <td>PQR</td>
-                        <td>Block</td>
-                        <td>Incomplete</td>
-                    </tr>
-                    <tr>
-                      <td>3</td>
-                      <td>PQR</td>
-                      <td>Block</td>
-                      <td>Incomplete</td>
-                  </tr><tr>
-                    <td>3</td>
-                    <td>PQR</td>
-                    <td>Block</td>
-                    <td>Incomplete</td>
-                </tr>
+                
                 </tbody>
             </table>
+            <div class="pagination">
+              <button id="prevPage-incomplete" onclick="prevPage('incomplete')">Previous</button>
+              <span id="pagination-info-incomplete">Page 1 of 1</span>
+              <button id="nextPage-incomplete" onclick="nextPage('incomplete')">Next</button>
+            </div>
           </div>
         </div>
+        
       </main>
     </div>
     

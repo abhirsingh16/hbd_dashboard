@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import Optional
+from typing import Optional, List
 
 class MasterInputBase(BaseModel):
     id: Optional[int] = None
@@ -50,6 +50,9 @@ class MasterInputBase(BaseModel):
 
 
 
-class MasterInput(MasterInputBase):
-    # This model can be used as the response model for GET requests
-    pass
+class PaginatedMasterInputResponse(BaseModel):
+    data: List[MasterInputBase]
+    total_records: int
+    offset: int
+    limit: int
+    has_more: bool

@@ -44,3 +44,10 @@ class MasterInput(Base):
     phone_no_3 = Column(String(255), nullable=True)
     avg_spent = Column(String(255), nullable=True)
     cost_for_two = Column(String(255), nullable=True)
+    
+    def as_dict(self):
+        return {column.name: getattr(self, column.name) for column in self.__table__.columns}
+    
+
+
+ 
