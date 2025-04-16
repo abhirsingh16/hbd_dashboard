@@ -24,9 +24,9 @@ def read_complete_data(
     print(f"Fetching data with OFFSET: {offset}, LIMIT: {limit}")
 
     try:
-        session.commit()
-        session.flush()
-        result = session.query(MasterInput).distinct().offset(offset).limit(limit).all()
+        result = session.query(MasterInput).offset(offset).limit(limit).all()
+        print(f"Fetched {len(result)} records with OFFSET {offset}")
+
         total_records = session.query(MasterInput).count()
         has_more = offset + limit < total_records
 

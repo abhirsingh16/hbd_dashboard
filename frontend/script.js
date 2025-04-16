@@ -8,11 +8,13 @@ let currentPages = {
 
 // Fetch Masters Data
 function fetchMastersData(page) {
-  const offset = (page - 1) * rowsPerPage; // Keep this line
-  
+  const offset = currentPages.masters.offset; // Use stored offset
+  console.log(`Offset value: ${offset}`); // Debugging line
+  console.log(`Page Value value: ${currentPages.masters.offset}`); // Debugging line
+
   console.log(`Fetching Masters Data for page: ${page}`); // Debugging line
 
-  fetch(`http://127.0.0.1:8000/read_master_input/?offset=${offset}&limit=${rowsPerPage}`)
+  fetch(`http://127.0.0.1:8000/read_master_input/?offset=${offset}&limit=${rowsPerPage}&t=${Date.now()}`)
     
     .then(response => response.json())
     .then(data => {
@@ -73,49 +75,51 @@ function fetchIncompleteData(page = 1) {
 
 // Display Data in Tables
 function displayData(section, records) {
-  const tableBody = document.getElementById(`${section}-table`);
-  if (tableBody) {
-    tableBody.innerHTML = "";
+  console.log(`Displaying Data for ${section}:`, records); // Add this line
 
-    if (records.length === 0) {
-      tableBody.innerHTML = "<tr><td colspan='25'>No data available</td></tr>";
-      return;
-    }
-    records.forEach(row => {
-      let tr = document.createElement("tr");
-      tr.innerHTML = `
-        <td>${row.id || "N/A"}</td>
-        <td>${row.category || "N/A"}</td>
-        <td>${row.city || "N/A"}</td>
-        <td>${row.name || "N/A"}</td>
-        <td>${row.area || "N/A"}</td>
-        <td>${row.address || "N/A"}</td>
-        <td>${row.phone1 || "N/A"}</td>
-        <td>${row.phone2 || "N/A"}</td>
-        <td>${row.url || "N/A"}</td>
-        <td>${row.ratings || "N/A"}</td>
-        <td>${row.sub_category || "N/A"}</td>
-        <td>${row.state || "N/A"}</td>
-        <td>${row.country || "N/A"}</td>
-        <td>${row.email || "N/A"}</td>
-        <td>${row.latitude || "N/A"}</td>
-        <td>${row.longitude || "N/A"}</td>
-        <td>${row.reviews || "N/A"}</td>
-        <td>${row.facebook_url || "N/A"}</td>
-        <td>${row.linkedin_url || "N/A"}</td>
-        <td>${row.twitter_url || "N/A"}</td>
-        <td>${row.description || "N/A"}</td>
-        <td>${row.pincode || "N/A"}</td>
-        <td>${row.virtual_phone || "N/A"}</td>
-        <td>${row.whatsapp_no || "N/A"}</td>
-        <td>${row.phone3 || "N/A"}</td>
-        <td>${row.avg_spent || "N/A"}</td>
-        <td>${row.cost_for_two || "N/A"}</td>
-      `;
-      tableBody.appendChild(tr);
-    });
+  const tableBody = document.getElementById(`${section}-table`);
+  tableBody.innerHTML = "";
+
+  if (records.length === 0) {
+    tableBody.innerHTML = "<tr><td colspan='25'>No data available</td></tr>";
+    return;
   }
+
+  records.forEach(row => {
+    let tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td>${row.id || "N/A"}</td>
+      <td>${row.category || "N/A"}</td>
+      <td>${row.city || "N/A"}</td>
+      <td>${row.name || "N/A"}</td>
+      <td>${row.area || "N/A"}</td>
+      <td>${row.address || "N/A"}</td>
+      <td>${row.phone1 || "N/A"}</td>
+      <td>${row.phone2 || "N/A"}</td>
+      <td>${row.url || "N/A"}</td>
+      <td>${row.ratings || "N/A"}</td>
+      <td>${row.sub_category || "N/A"}</td>
+      <td>${row.state || "N/A"}</td>
+      <td>${row.country || "N/A"}</td>
+      <td>${row.email || "N/A"}</td>
+      <td>${row.latitude || "N/A"}</td>
+      <td>${row.longitude || "N/A"}</td>
+      <td>${row.reviews || "N/A"}</td>
+      <td>${row.facebook_url || "N/A"}</td>
+      <td>${row.linkedin_url || "N/A"}</td>
+      <td>${row.twitter_url || "N/A"}</td>
+      <td>${row.description || "N/A"}</td>
+      <td>${row.pincode || "N/A"}</td>
+      <td>${row.virtual_phone || "N/A"}</td>
+      <td>${row.whatsapp_no || "N/A"}</td>
+      <td>${row.phone3 || "N/A"}</td>
+      <td>${row.avg_spent || "N/A"}</td>
+      <td>${row.cost_for_two || "N/A"}</td>
+    `;
+    tableBody.appendChild(tr);
+  });
 }
+
 
 // Update Pagination
 function updatePagination(section, current, total) {
@@ -146,6 +150,7 @@ function nextPage(section) {
     currentPages[section].offset = offset;  // Store offset
     
     console.log(`Navigating to next page of ${section}: Page ${currentPages[section].page}`);
+    console.log(`Next Page Offset: ${currentPages[section].offset}`);
     console.log(`Next Page Offset: ${currentPages[section].offset}`);
 
     if (section === "masters") {
